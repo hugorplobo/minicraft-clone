@@ -3,9 +3,17 @@
 
 #include <raylib.h>
 
+typedef enum {
+    RIGHT,
+    DOWN,
+    UP,
+    LEFT
+} PlayerDirection;
+
 typedef struct {
     Vector2 pos;
-    Vector2 direction;
+    PlayerDirection direction;
+    Vector2 velocity;
 } Player;
 
 #endif
