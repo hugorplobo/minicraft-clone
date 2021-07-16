@@ -6,23 +6,19 @@
 
 int main() {
     InitWindow(WIDTH, HEIGHT, "Minicraft");
+    SetTargetFPS(60);
 
-    Player player = { { WIDTH / 2.0, HEIGHT / 2.0 }, { 0, 0 } };
+    Player player = { { WIDTH / 2.0, HEIGHT / 2.0 }, RIGHT, { 0, 0 } };
+    Texture playerSpriteSheet = LoadTexture("../assets/player/player.png");
 
     while(!WindowShouldClose()) {
-
-        double deltaTime = GetFrameTime();
-
+        updatePlayer(&player);
         handlePlayerInputs(&player);
-
-        if(player.direction.x != 0 || player.direction.y != 0)
-            movePlayer(&player, deltaTime);
 
         BeginDrawing();
 
             ClearBackground(BLACK);
-            
-            DrawRectangleV(player.pos, (Vector2){ RESOLUTION, RESOLUTION }, BLUE);
+            drawPlayer(&player, &playerSpriteSheet);
 
         EndDrawing();
     }

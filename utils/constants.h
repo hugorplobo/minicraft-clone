@@ -8,5 +8,6 @@
 
 // Player related
 #define PLAYER_SPEED 100
+#define PLAYER_SPRITE_SIZE 64
 
 #endif
