@@ -3,6 +3,14 @@
 
 #include <raylib.h>
 
+// Terrain Related
+typedef enum {
+    DIRT,
+    GRASS,
+    STONE
+} TerrainTile;
+
+// Player Related
 typedef enum {
     RIGHT,
     DOWN,
