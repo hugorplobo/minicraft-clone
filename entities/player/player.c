@@ -5,10 +5,12 @@
 int framesCounter = 0, framesSpeed = 6, currentFrame = 0;
 Rectangle frameRec = { 0, 0, PLAYER_SPRITE_SIZE, PLAYER_SPRITE_SIZE };
 
-void movePlayer(Player* player) {
+void movePlayer(Player* player, Camera2D* camera) {
     float deltaTime = GetFrameTime();
     player->pos.x += PLAYER_SPEED * deltaTime * player->velocity.x;
     player->pos.y += PLAYER_SPEED * deltaTime * player->velocity.y;
+
+    camera->target = (Vector2){ player->pos.x + PLAYER_SPRITE_SIZE / 2.0, player->pos.y + PLAYER_SPRITE_SIZE / 2.0 };
 }
 
 void getPlayerInputs(Player* player) {
@@ -31,7 +33,7 @@ void getPlayerInputs(Player* player) {
     }
 }
 
-void handlePlayerInputs(Player* player) {
+void handlePlayerInputs(Player* player, Camera2D* camera) {
     getPlayerInputs(player);
     
     if(!IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT))
@@ -40,7 +42,7 @@ void handlePlayerInputs(Player* player) {
         player->velocity.y = 0;
 
     if(player->velocity.x != 0 || player->velocity.y != 0)
-        movePlayer(player);
+        movePlayer(player, camera);
 }
 
 void drawPlayer(Player* player, Texture* sprites) {
