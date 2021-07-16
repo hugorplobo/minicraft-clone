@@ -4,7 +4,7 @@
 // Screen related
 #define WIDTH 500
 #define HEIGHT 500
-#define RESOLUTION 25
+#define RESOLUTION 15
 
 // Player related
 #define PLAYER_SPEED 100
