@@ -9,12 +9,11 @@
 #include "../../utils/constants.h"
 
 TerrainTile* generateTerrain() {
-    srand(time(0));
-    Image perlinNoise = GenImagePerlinNoise(100, 100, rand() % 100, rand() % 100, 3);
+    Image perlinNoise = GenImagePerlinNoise(200, 200, GetRandomValue(0, 10000), GetRandomValue(0, 10000), 2);
     Color* mapColors = LoadImageColors(perlinNoise);
-    TerrainTile* mapTiles = (TerrainTile*) malloc(sizeof(TerrainTile) * 100 * 100);
+    TerrainTile* mapTiles = (TerrainTile*) malloc(sizeof(TerrainTile) * 200 * 200);
 
-    for(int i = 0; i < 100 * 100; i++) {
+    for(int i = 0; i < 200 * 200; i++) {
         int sumColor = mapColors[i].r + mapColors[i].g + mapColors[i].b;
 
         if(sumColor <= 255)
@@ -30,13 +29,16 @@ TerrainTile* generateTerrain() {
 }
 
 void drawTerrain(TerrainTile* mapTiles, Camera2D* camera) {
-    Vector2 initBorder, endBorder;
+    for(int i = 0; i < 200; i++) {
+        for(int j = 0; j < 200; j++) {
+            if(!(i * RESOLUTION <= camera->target.x + WIDTH && 
+                i * RESOLUTION >= camera->target.x - WIDTH &&
+                j * RESOLUTION <= camera->target.y + HEIGHT &&
+                j * RESOLUTION >= camera->target.y - HEIGHT)) continue;
 
-    for(int i = 0; i < 100; i++) {
-        for(int j = 0; j < 100; j++) {
             Color tileColor;
 
-            switch (mapTiles[i * 100 + j]) {
+            switch(mapTiles[i * 200 + j]) {
                 case DIRT:
                     tileColor = BROWN;
                     break;
